@@ -1,11 +1,62 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Sleep Logger
+      P&C's Sleep Logger
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  
+    <ion-icon name="moon"></ion-icon> 
+    <ion-item>
+        <ion-label>Bed Time</ion-label>
+        <ion-datetime display-format="YYYY-MM-DDTHH:mm" [(ngModel)]="bedTime" required="true"></ion-datetime>
+    </ion-item>
+    <ion-item>
+        <ion-label>Wake Time</ion-label>
+        <ion-datetime display-format="YYYY-MM-DDTHH:mm" [(ngModel)]="wakeTime"></ion-datetime>
+    </ion-item>
+    <ion-item>
+        <ion-button color="primary" (click)="nightInput()" slot="end">Submit</ion-button>
+    </ion-item>
+
+
+
+  <ion-icon name="sunny"></ion-icon> 
+    <ion-item>
+        <ion-label>Sleepiness Rating</ion-label>
+        <ion-input type="number" placeholder="1 to 7" max="7" min="1" required="true" [(ngModel)]="sleepRating"></ion-input>
+    </ion-item>
+    <ion-item >
+        <ion-label>Sleepy Time</ion-label>
+        <ion-datetime display-format="YYYY-MM-DDTHH:mm" [(ngModel)]="sleepyTime" required="true"></ion-datetime>
+    </ion-item>
+    <ion-item>
+        <ion-button color="primary" (click)="ratingInput()"
+         slot="end">Submit</ion-button>
+         
+    </ion-item>
+
+
+
+    <ion-item>
+        <ion-icon name="clipboard"></ion-icon> 
+        <ion-label>Overnight Sleep Data</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-button color="primary" (click)="nightLogs()" slot="start">View</ion-button>
+    </ion-item>
+    <ion-item *ngFor="let item of nightData">{{item.summaryString()}} {{item.dateString()}}</ion-item>
+
+
+
+    <ion-item>
+        <ion-icon name="clipboard"></ion-icon> 
+        <ion-label>Sleepiness Data</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-button color="primary" (click)="sleepyLogs()" slot="start">View</ion-button>
+    </ion-item>
+    <ion-item *ngFor="let item of sleepyData">{{item.summaryString()}} on {{item.dateString()}} at {{item.loggedAt.toLocaleTimeString()}}</ion-item>
 </ion-content>
+
