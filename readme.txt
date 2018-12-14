@@ -1,4 +1,4 @@
---Readme document for *author(s)*, *email(s)*, *UCI id(s)*--
+--Readme document for *Carlos Cortes / Parker Scott*, *ccortesg@uci.edu / scottpt@uci.edu*, *80207156 / 52202837*--
 
 1. How long, in hours, did it take you to complete this assignment?
 Incomplete. 14 hours.
