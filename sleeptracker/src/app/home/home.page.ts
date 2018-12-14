@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SleepService } from '../services/sleep.service';
 import { SleepData } from '../data/sleep-data';
 import { OvernightSleepData } from '../data/overnight-sleep-data';
 import { StanfordSleepinessData } from '../data/stanford-sleepiness-data';
+import { ModalController } from '@ionic/angular';
+import { NightModalPage } from './night-modal/night-modal.page';
+import { FirebaseService } from '../services/firebase.service';
 
 
 @Component({
@@ -18,7 +21,7 @@ export class HomePage {
 	nightData:OvernightSleepData[];
 	sleepyData:StanfordSleepinessData[];
 
-	constructor(public sleepService:SleepService) {
+	constructor(public sleepService:SleepService, public modalController: ModalController, public FirebaseService:FirebaseService) {
 		this.bedTime = new Date();
 		this.wakeTime = new Date();
 	}
@@ -27,10 +30,30 @@ export class HomePage {
 		//console.log(this.allSleepData);
 	}
 
+	presentModal() {
+		this.modalController.create({
+		  component: NightModalPage,
+		  componentProps: { name: "INF 133" }
+		}).then((modal) => {
+		modal.present();
+		})
+	}
+	dismissModal() {
+		this.modalController.dismiss();
+	}
+
 	/* Ionic doesn't allow bindings to static variables, so this getter can be used instead. */
 	get allSleepData() {
 		return SleepService.AllSleepData;
 		
+	}
+
+	nightDBInput() {
+		this.FirebaseService.addOvernightSleepLog(this.nightData);
+	}
+
+	sleepyDBInput() {
+		this.FirebaseService.addRatingsSleepLog(this.sleepyData)
 	}
 
 	//overnight data input function
@@ -42,9 +65,9 @@ export class HomePage {
 		 wakeUTC = new Date(wakeUTC.getTime() + ( wakeUTC.getTimezoneOffset() * 60000 ) );
 		 
 		this.sleepService.logOvernightData(new OvernightSleepData(bedUTC, wakeUTC));
-		console.log(this.bedTime);
-		console.log(this.wakeTime);
-		console.log(this.allSleepData);
+		//console.log(this.bedTime);
+		//console.log(this.wakeTime);
+		//console.log(this.allSleepData);
 	}
 
 	//sleepiness rating data input function
@@ -60,6 +83,7 @@ export class HomePage {
 
 	//overnight logging function
 	nightLogs() {
+		console.log("Firebase nightLogs: " + this.FirebaseService.getOvernightSleepLogs());
 		this.nightData = SleepService.AllOvernightData;
 	}
 

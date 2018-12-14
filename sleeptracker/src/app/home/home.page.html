@@ -1,12 +1,18 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>
       P&C's Sleep Logger
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+
+
+<ion-content>
+<!--
     <ion-icon name="moon"></ion-icon> 
     <ion-item>
         <ion-label>Bed Time</ion-label>
@@ -58,5 +64,62 @@
         <ion-button color="primary" (click)="sleepyLogs()" slot="start">View</ion-button>
     </ion-item>
     <ion-item *ngFor="let item of sleepyData">{{item.summaryString()}} on {{item.dateString()}} at {{item.loggedAt.toLocaleTimeString()}}</ion-item>
+-->
+
+    
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+
+        <ion-fab-list side="top">
+            <ion-fab-button (click) = "nightDBInput()">
+                <ion-icon name="moon"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button (click) = "sleepyDBInput()">
+                <ion-icon name="sunny"></ion-icon>
+            </ion-fab-button>
+        </ion-fab-list>
+        
+    </ion-fab>
+            <ion-tabs>
+                <ion-tab tab="overnight" >
+                    <ion-list>
+                        Overnight content
+                        <ion-item *ngFor="let item of nightData">
+                    
+                        {{item.summaryString()}} {{item.dateString()}}
+                    </ion-item>
+                    </ion-list>
+                </ion-tab>
+                <ion-tab tab="ratings">
+                    <ion-list>
+                        Sleep Rating Log Content
+                        <ion-item *ngFor="let item of sleepyData">
+                    
+                        {{item.summaryString()}} {{item.dateString()}}
+                    </ion-item>
+                    </ion-list></ion-tab>
+                    <ion-tab-bar slot="bottom">
+                        
+                        <ion-tab-button tab="overnight" (click)="nightLogs()">
+                            <ion-label>Overnight</ion-label>
+                            <ion-icon name="moon"></ion-icon>
+                            <ion-badge>6</ion-badge>
+                        </ion-tab-button>
+                          
+                        <ion-tab-button tab="ratings" (click)="sleepyLogs()">
+                            <ion-label>Sleep Rating</ion-label>
+                            <ion-icon name="sunny"></ion-icon>
+                        </ion-tab-button>
+                          
+                    </ion-tab-bar>
+            </ion-tabs>
+
 </ion-content>
 
+<ion-footer>
+    
+   
+</ion-footer>

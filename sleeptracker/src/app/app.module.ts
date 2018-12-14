@@ -9,10 +9,16 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import {AngularFireModule} from '@angular/fire';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {environment} from '../environments/environment';
+import { FireLogComponent } from './fire-log/fire-log.component';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, FireLogComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
+  AngularFireModule.initializeApp(environment.firebase, 'a5-sleeptracker'), AngularFirestoreModule],
   providers: [
     StatusBar,
     SplashScreen,
